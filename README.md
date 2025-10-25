@@ -15,6 +15,10 @@ Automação de testes frontend usando **Playwright** para o site **SauceDemo**.
 ## 📂 Estrutura do projeto
 
 ```
+├── .github/
+│ └── workflows/
+│     └── pipeline.yml # Pipeline CI/CD do GitHub Actions
+│
 ├── fixtures/
 │ ├── products.js # Produtos de teste
 │ └── users.js # Usuários de teste

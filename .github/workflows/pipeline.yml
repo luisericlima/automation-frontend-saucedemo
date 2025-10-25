@@ -1,0 +1,41 @@
+name: Playwright FrontEnd Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      STANDARD_USER: ${{ secrets.STANDARD_USER }}
+      STANDARD_PASS: ${{ secrets.STANDARD_PASS }}
+      LOCKED_USER: ${{ secrets.LOCKED_USER }}
+      LOCKED_PASS: ${{ secrets.LOCKED_PASS }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Iniciar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Instalar Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Executar Playwright Testes
+        run: npx playwright test
+
+      - name: Upload do report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
